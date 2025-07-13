@@ -1,0 +1,41 @@
+# ST Scene Curat-o-matic - Dependencias del Proyecto
+
+# Framework principal
+streamlit>=1.28.0
+
+# Procesamiento de video y detección de escenas
+pyscenedetect[opencv]>=0.6.2
+moviepy>=1.0.3
+opencv-python>=4.8.0
+ffmpeg-python>=0.2.0
+
+# Manipulación de datos
+pandas>=2.0.0
+numpy>=1.24.0
+
+# APIs de IA y procesamiento
+google-generativeai>=0.3.0
+requests>=2.31.0
+
+# Utilidades adicionales
+pillow>=10.0.0
+plotly>=5.15.0
+streamlit-components-v1>=0.0.1
+
+# Manejo de archivos y paths
+pathlib2>=2.3.7
+
+# Logging y debugging
+loguru>=0.7.0
+
+# Validación de datos
+pydantic>=2.0.0
+
+# Procesamiento de JSON
+orjson>=3.9.0
+
+# Utilidades de tiempo
+python-dateutil>=2.8.2
+
+# Manejo de configuración
+python-dotenv>=1.0.0

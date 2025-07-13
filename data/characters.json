@@ -1,0 +1,259 @@
+{
+  "stranger_things_characters": {
+    "main_characters": [
+      "Eleven (Jane Hopper)",
+      "Mike Wheeler",
+      "Dustin Henderson",
+      "Lucas Sinclair",
+      "Will Byers",
+      "Max Mayfield",
+      "Steve Harrington",
+      "Nancy Wheeler",
+      "Jonathan Byers",
+      "Joyce Byers",
+      "Jim Hopper",
+      "Robin Buckley"
+    ],
+    "by_season": {
+      "season_1": {
+        "main": [
+          "Eleven (Jane Hopper)",
+          "Mike Wheeler",
+          "Dustin Henderson",
+          "Lucas Sinclair",
+          "Will Byers",
+          "Joyce Byers",
+          "Jim Hopper",
+          "Nancy Wheeler",
+          "Jonathan Byers",
+          "Steve Harrington"
+        ],
+        "supporting": [
+          "Barb Holland",
+          "Karen Wheeler",
+          "Ted Wheeler",
+          "Holly Wheeler",
+          "Lonnie Byers",
+          "Dr. Martin Brenner",
+          "Agent Frazier",
+          "Agent Kaminsky",
+          "Troy Walsh",
+          "James Dante",
+          "Mr. Clarke",
+          "Principal Coleman",
+          "Benny Hammond",
+          "Carol Perkins",
+          "Tommy Hagan"
+        ],
+        "creatures": [
+          "Demogorgon",
+          "The Mind Flayer (mentioned)"
+        ]
+      },
+      "season_2": {
+        "main": [
+          "Eleven (Jane Hopper)",
+          "Mike Wheeler",
+          "Dustin Henderson",
+          "Lucas Sinclair",
+          "Will Byers",
+          "Max Mayfield",
+          "Steve Harrington",
+          "Nancy Wheeler",
+          "Jonathan Byers",
+          "Joyce Byers",
+          "Jim Hopper"
+        ],
+        "supporting": [
+          "Billy Hargrove",
+          "Bob Newby",
+          "Dr. Sam Owens",
+          "Kali Prasad (Eight)",
+          "Murray Bauman",
+          "Axel",
+          "Mick",
+          "Funshine",
+          "Dottie",
+          "Neil Hargrove",
+          "Susan Hargrove",
+          "Dart (D'Artagnan)"
+        ],
+        "creatures": [
+          "Demodogs",
+          "The Mind Flayer",
+          "Dart (Demodog)"
+        ]
+      },
+      "season_3": {
+        "main": [
+          "Eleven (Jane Hopper)",
+          "Mike Wheeler",
+          "Dustin Henderson",
+          "Lucas Sinclair",
+          "Will Byers",
+          "Max Mayfield",
+          "Steve Harrington",
+          "Nancy Wheeler",
+          "Jonathan Byers",
+          "Joyce Byers",
+          "Jim Hopper",
+          "Robin Buckley"
+        ],
+        "supporting": [
+          "Billy Hargrove",
+          "Erica Sinclair",
+          "Alexei",
+          "Grigori",
+          "Mayor Larry Kline",
+          "Heather Holloway",
+          "Tom Holloway",
+          "Bruce Lowe",
+          "Doris Driscoll",
+          "Janet Holloway",
+          "Dmitri Antonov"
+        ],
+        "creatures": [
+          "The Mind Flayer",
+          "The Flayed",
+          "Spider Monster"
+        ]
+      },
+      "season_4": {
+        "main": [
+          "Eleven (Jane Hopper)",
+          "Mike Wheeler",
+          "Dustin Henderson",
+          "Lucas Sinclair",
+          "Will Byers",
+          "Max Mayfield",
+          "Steve Harrington",
+          "Nancy Wheeler",
+          "Jonathan Byers",
+          "Joyce Byers",
+          "Jim Hopper",
+          "Robin Buckley"
+        ],
+        "new_main": [
+          "Eddie Munson",
+          "Argyle"
+        ],
+        "supporting": [
+          "Dr. Martin Brenner",
+          "Dr. Sam Owens",
+          "Dmitri Antonov",
+          "Yuri Ismaylov",
+          "Murray Bauman",
+          "Erica Sinclair",
+          "Jason Carver",
+          "Chrissy Cunningham",
+          "Patrick McKinney",
+          "Fred Benson",
+          "Ms. Kelly",
+          "Wayne Munson",
+          "Colonel Sullivan",
+          "Agent Harmon",
+          "Agent Wallace",
+          "Two (002)",
+          "Peter Ballard (001/Henry Creel/Vecna)"
+        ],
+        "creatures": [
+          "Vecna (Henry Creel/001)",
+          "Demobats",
+          "Demogorgons",
+          "The Mind Flayer"
+        ]
+      }
+    },
+    "groups": {
+      "the_party": [
+        "Eleven (Jane Hopper)",
+        "Mike Wheeler",
+        "Dustin Henderson",
+        "Lucas Sinclair",
+        "Will Byers",
+        "Max Mayfield"
+      ],
+      "teenagers": [
+        "Steve Harrington",
+        "Nancy Wheeler",
+        "Jonathan Byers",
+        "Robin Buckley",
+        "Eddie Munson",
+        "Billy Hargrove",
+        "Argyle"
+      ],
+      "adults": [
+        "Joyce Byers",
+        "Jim Hopper",
+        "Dr. Martin Brenner",
+        "Dr. Sam Owens",
+        "Murray Bauman",
+        "Bob Newby"
+      ],
+      "hawkins_lab": [
+        "Dr. Martin Brenner",
+        "Dr. Sam Owens",
+        "Eleven (Jane Hopper)",
+        "Kali Prasad (Eight)",
+        "Peter Ballard (001/Henry Creel/Vecna)",
+        "Two (002)"
+      ],
+      "government": [
+        "Agent Frazier",
+        "Agent Kaminsky",
+        "Agent Harmon",
+        "Agent Wallace",
+        "Colonel Sullivan"
+      ],
+      "russians": [
+        "Alexei",
+        "Grigori",
+        "Dmitri Antonov",
+        "Yuri Ismaylov"
+      ],
+      "upside_down_creatures": [
+        "Demogorgon",
+        "Demodogs",
+        "Demobats",
+        "The Mind Flayer",
+        "Vecna (Henry Creel/001)",
+        "Spider Monster"
+      ]
+    },
+    "families": {
+      "byers_family": [
+        "Joyce Byers",
+        "Jonathan Byers",
+        "Will Byers",
+        "Lonnie Byers"
+      ],
+      "wheeler_family": [
+        "Karen Wheeler",
+        "Ted Wheeler",
+        "Nancy Wheeler",
+        "Mike Wheeler",
+        "Holly Wheeler"
+      ],
+      "hopper_family": [
+        "Jim Hopper",
+        "Eleven (Jane Hopper)"
+      ],
+      "sinclair_family": [
+        "Lucas Sinclair",
+        "Erica Sinclair"
+      ],
+      "hargrove_family": [
+        "Billy Hargrove",
+        "Neil Hargrove",
+        "Susan Hargrove",
+        "Max Mayfield"
+      ],
+      "creel_family": [
+        "Victor Creel",
+        "Virginia Creel",
+        "Alice Creel",
+        "Henry Creel (Vecna/001)"
+      ]
+    }
+  }
+}
