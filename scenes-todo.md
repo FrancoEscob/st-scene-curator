@@ -21,12 +21,12 @@ Transformar el `app.py` actual para que coincida exactamente con el mockup propo
 - [x] **1.5** Actualizar función `initialize_session_state()` para usar `selected_scene_id`
 - [x] **1.6** Limpiar la función `main()` eliminando referencias a timeline antigua
 
-### 🎨 ETAPA 2: Implementar Nueva Timeline de Chips
-- [ ] **2.1** Crear función `render_timeline_chips(scenes)` basada en app-demo.py
-- [ ] **2.2** Agregar CSS personalizado para styling de chips (botones)
-- [ ] **2.3** Implementar lógica de selección con `st.columns` y `st.button`
-- [ ] **2.4** Agregar feedback visual para chip seleccionado (disabled + CSS)
-- [ ] **2.5** Implementar sincronización automática del video con escena seleccionada
+### ✅ ETAPA 2: Implementar Nueva Timeline de Chips - COMPLETADA
+- [x] **2.1** Crear función `render_timeline_chips(scenes)` basada en app-demo.py
+- [x] **2.2** Agregar CSS personalizado para styling de chips (botones)
+- [x] **2.3** Implementar lógica de selección con `st.columns` y `st.button`
+- [x] **2.4** Agregar feedback visual para chip seleccionado (disabled + CSS)
+- [x] **2.5** Implementar sincronización automática del video con escena seleccionada
 
 ### 🛠️ ETAPA 3: Herramientas de Edición (Group & Cut)
 - [ ] **3.1** Crear función `render_editing_tools()`
@@ -97,7 +97,7 @@ Transformar el `app.py` actual para que coincida exactamente con el mockup propo
 - 🆕 Sincronización automática video-escena
 
 ## 🚀 Próximo Paso
-**ETAPA 2: Implementar Nueva Timeline de Chips** - Crear timeline con botones de escenas basada en app-demo.py y mockup.
+**ETAPA 3: Herramientas de Edición (Group & Cut)** - Implementar herramientas de edición visual para fusionar y dividir escenas.
 
 ---
 *Creado: $(date)*

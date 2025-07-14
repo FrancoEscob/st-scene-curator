@@ -214,6 +214,81 @@ def render_sidebar():
 
 # Función handle_scene_merging eliminada - será reemplazada por herramientas de edición
 
+def render_timeline_chips(scenes):
+    """Renderiza la timeline horizontal con chips clickeables para cada escena"""
+    if not scenes:
+        st.info("No hay escenas para mostrar")
+        return
+    
+    # CSS personalizado para los chips
+    st.markdown("""
+    <style>
+    .chip-button {
+        background-color: #f0f2f6;
+        border: 1px solid #d1d5db;
+        border-radius: 20px;
+        padding: 8px 16px;
+        margin: 4px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #374151;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-block;
+        min-width: 120px;
+        text-align: center;
+    }
+    
+    .chip-button:hover {
+        background-color: #e5e7eb;
+        border-color: #9ca3af;
+        transform: translateY(-1px);
+    }
+    
+    .chip-selected {
+        background-color: #3b82f6 !important;
+        border-color: #2563eb !important;
+        color: white !important;
+    }
+    
+    .chip-selected:hover {
+        background-color: #2563eb !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("**🎞️ Selecciona una escena:**")
+    
+    # Crear columnas para los chips
+    cols_per_row = 4
+    num_scenes = len(scenes)
+    
+    for i in range(0, num_scenes, cols_per_row):
+        cols = st.columns(cols_per_row)
+        
+        for j in range(cols_per_row):
+            scene_idx = i + j
+            if scene_idx < num_scenes:
+                scene = scenes[scene_idx]
+                scene_id = f"scene_{scene_idx + 1}"
+                duration = scene['end_time'] - scene['start_time']
+                
+                with cols[j]:
+                    # Determinar si este chip está seleccionado
+                    is_selected = st.session_state.get('selected_scene_id') == scene_id
+                    
+                    # Crear el botón chip
+                    button_key = f"chip_{scene_idx}"
+                    if st.button(
+                        f"Escena {scene_idx + 1}\n{duration:.1f}s",
+                        key=button_key,
+                        disabled=is_selected,
+                        help=f"Tiempo: {scene['start_time']:.1f}s - {scene['end_time']:.1f}s\nConfianza: {scene['confidence']:.2f}"
+                    ):
+                        st.session_state.selected_scene_id = scene_id
+                        st.rerun()
+
+
 # --- Interfaz Principal ---
 def main():
     """Función principal que renderiza la aplicación Streamlit."""
@@ -221,7 +296,7 @@ def main():
     render_sidebar()
 
     st.title("Editor Visual de Escenas")
-    st.markdown("---_*")
+    st.markdown("---")
 
     if not st.session_state.analysis_completed:
         st.info("👋 ¡Bienvenido! Por favor, carga un video y haz clic en 'Analizar' en la barra lateral para comenzar.")
@@ -237,8 +312,18 @@ def main():
             if st.session_state.video_path:
                 st.video(st.session_state.video_path)
             
-            # Timeline de chips - se implementará en ETAPA 2
-            st.info("🚧 Timeline de chips se implementará en ETAPA 2")
+            # ETAPA 2: Timeline de chips implementada
+            st.subheader("🎞️ Timeline de Escenas")
+            render_timeline_chips(st.session_state.scenes)
+            
+            # Mostrar información de la escena seleccionada
+            if st.session_state.get('selected_scene_id'):
+                selected_idx = int(st.session_state.selected_scene_id.split('_')[1]) - 1
+                if 0 <= selected_idx < len(st.session_state.scenes):
+                    selected_scene = st.session_state.scenes[selected_idx]
+                    st.info(f"🎯 **Escena seleccionada:** {st.session_state.selected_scene_id} | "
+                           f"**Tiempo:** {selected_scene['start_time']:.1f}s - {selected_scene['end_time']:.1f}s | "
+                           f"**Duración:** {selected_scene['end_time'] - selected_scene['start_time']:.1f}s")
             
             # Herramientas de edición - se implementarán en ETAPA 3
             st.info("🚧 Herramientas de edición (Group/Cut) se implementarán en ETAPA 3")
