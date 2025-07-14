@@ -59,9 +59,9 @@ def initialize_session_state():
     else:
         print(f"[TERMINAL INIT] 📋 scenes ya existe: {len(st.session_state.scenes)} elementos")
     
-    if 'selected_scene' not in st.session_state:
-        st.session_state.selected_scene = None
-        print("[TERMINAL INIT] ✅ selected_scene inicializado")
+    if 'selected_scene_id' not in st.session_state:
+        st.session_state.selected_scene_id = None
+        print("[TERMINAL INIT] ✅ selected_scene_id inicializado")
     
     if 'characters_data' not in st.session_state:
         st.session_state.characters_data = load_characters_data()
@@ -198,240 +198,65 @@ def render_sidebar():
                         print(f"[TERMINAL APP] ✅ ¡Análisis completado! Detectadas {len(scenes)} escenas")
                         
                         st.write("🔄 Ejecutando st.rerun()...")
-                        print(f"[TERMINAL APP] 🔄 Ejecutando st.rerun()...")
-                        st.rerun()  # Refrescar para mostrar las escenas
-                    else:
-                        print(f"[TERMINAL APP] ❌ No se pudieron detectar escenas en el video")
-                        print(f"[TERMINAL APP] ⚠️ Lista de escenas vacía o None")
-                        st.error("❌ No se pudieron detectar escenas en el video")
-                        st.write("⚠️ Lista de escenas vacía o None")
-                        
-                except Exception as e:
-                    print(f"[TERMINAL APP] ❌ ERROR durante el análisis: {str(e)}")
-                    print(f"[TERMINAL APP] 🐛 Tipo de error: {type(e).__name__}")
-                    import traceback
-                    print(f"[TERMINAL APP] 📋 Stack trace:")
-                    print(traceback.format_exc())
-                    
-                    st.error(f"❌ Error durante el análisis: {str(e)}")
-                    st.write(f"🐛 Tipo de error: {type(e).__name__}")
-                    st.code(traceback.format_exc())
-                    logging.error(f"Error en análisis: {e}")
-                    
-                    # Fallback a datos de ejemplo
-                    st.warning("🔄 Usando datos de ejemplo para continuar...")
-                    st.session_state.scenes = get_sample_scenes()
-                    st.session_state.analysis_completed = True
-                    st.write("✅ Datos de ejemplo cargados")
-            else:
-                st.error("❌ Formato de video no soportado")
-                st.write(f"🔍 Validación falló para: {st.session_state.video_path}")
-    
-    # Información del proyecto
-    st.sidebar.markdown("---")
-    st.sidebar.markdown("### 📊 Estado del Proyecto")
-    if st.session_state.analysis_completed:
-        st.sidebar.metric("Escenas detectadas", len(st.session_state.scenes))
-        processed_scenes = len([s for s in st.session_state.scenes if s.get('status') == 'processed'])
-        st.sidebar.metric("Escenas procesadas", processed_scenes)
-    else:
-        st.sidebar.info("Carga un video para comenzar")
-
-def render_main_interface():
-    """Renderiza la interfaz principal con editor de video y panel de anotación."""
-    
-    print(f"[TERMINAL INTERFACE] 🎬 Iniciando render_main_interface()")
-    print(f"[TERMINAL INTERFACE] 📊 Estado: analysis_completed={st.session_state.analysis_completed}, scenes={len(st.session_state.scenes) if st.session_state.scenes else 0}")
-    
-    # Debug: Estado actual
-    st.write("🔍 DEBUG - Estado actual:")
-    st.write(f"  - analysis_completed: {st.session_state.analysis_completed}")
-    st.write(f"  - scenes disponibles: {len(st.session_state.scenes) if st.session_state.scenes else 0}")
-    st.write(f"  - video_file: {st.session_state.video_file.name if st.session_state.video_file else 'None'}")
-    
-    # Capturar el valor exacto antes de la condición
-    analysis_completed_value = st.session_state.analysis_completed
-    print(f"[TERMINAL INTERFACE] 🔍 Valor capturado de analysis_completed: {analysis_completed_value}")
-    print(f"[TERMINAL INTERFACE] 🔍 Tipo de valor: {type(analysis_completed_value)}")
-    print(f"[TERMINAL INTERFACE] 🔍 Evaluación de 'not analysis_completed': {not analysis_completed_value}")
-    
-    if not analysis_completed_value:
-        print(f"[TERMINAL INTERFACE] 📋 Mostrando pantalla de bienvenida (analysis_completed = False)")
-        st.write("📋 Mostrando pantalla de bienvenida (analysis_completed = False)")
-        # Pantalla de bienvenida
-        st.title("🎬 ST Scene Curat-o-matic")
-        st.markdown("""
-        ### Herramienta de Curación y Anotación de Escenas de Stranger Things
-        
-        **¿Cómo funciona?**
-        1. 📁 **Carga** un archivo de video del episodio en la barra lateral
-        2. ⚙️ **Configura** el umbral de detección según tus necesidades
-        3. 🔍 **Analiza** el video para detectar escenas automáticamente
-        4. ✂️ **Edita** las escenas en el timeline interactivo
-        5. 📝 **Anota** cada escena con personajes y contexto narrativo
-        6. 🚀 **Envía** las escenas curadas al pipeline de IA
-        
-        **Funcionalidades del Editor:**
-        - 🎯 Selección de escenas en timeline visual
-        - ✂️ Ajuste preciso de tiempos (trimming)
-        - 🔗 Fusión de escenas adyacentes
-        - ✂️ División de escenas en puntos específicos
-        - 👥 Anotación de personajes presentes
-        - 📖 Notas de contexto narrativo
-        
-        **¡Comienza cargando un video en la barra lateral!**
-        """)
-        return
-    
-    print(f"[TERMINAL INTERFACE] 🎬 Mostrando interfaz del editor (analysis_completed = True)")
-    print(f"[TERMINAL INTERFACE] ✅ EJECUTANDO RAMA ELSE - INTERFAZ DEL EDITOR")
-    st.write("🎬 Mostrando interfaz del editor (analysis_completed = True)")
-    st.write("✅ EJECUTANDO RAMA ELSE - INTERFAZ DEL EDITOR")
-    
-    # Interfaz principal del editor
-    st.title("🎬 Editor de Escenas")
-    
-    # Layout de dos columnas
-    col_left, col_right = st.columns([2, 1])
-    
-    with col_left:
-        st.subheader("📹 Reproductor de Video")
-        
-        # Placeholder para el reproductor de video
-        if st.session_state.video_file:
-            # TODO: Implementar reproductor sincronizado en ETAPA 4
-            st.info("🚧 Reproductor de video (se implementará en ETAPA 4)")
-            st.video(st.session_state.video_file)
-        
-        st.subheader("⏱️ Timeline de Escenas")
-        # TODO: Implementar timeline interactivo en ETAPA 3
-        st.info("🚧 Timeline interactivo (se implementará en ETAPA 3)")
-        
-        # Vista temporal de lista de escenas
-        if st.session_state.scenes:
-            st.markdown("**Escenas detectadas:**")
-            
-            # Estadísticas rápidas
-            total_scenes = len(st.session_state.scenes)
-            total_duration = sum(scene['duration'] for scene in st.session_state.scenes)
-            
-            col1, col2, col3 = st.columns(3)
-            with col1:
-                st.metric("Total Escenas", total_scenes)
-            with col2:
-                st.metric("Duración Total", f"{total_duration/60:.1f} min")
-            with col3:
-                avg_duration = total_duration / total_scenes if total_scenes > 0 else 0
-                st.metric("Duración Promedio", f"{avg_duration:.1f}s")
-            
-            st.divider()
-            
-            for scene in st.session_state.scenes:
-                col1, col2, col3, col4, col5 = st.columns([1, 2, 2, 1, 1])
-                with col1:
-                    st.write(f"**{scene['id']}**")
-                with col2:
-                    st.write(f"{scene['start_timecode']} - {scene['end_timecode']}")
-                with col3:
-                    st.write(f"Duración: {scene['duration']:.1f}s")
-                with col4:
-                    status_color = {
-                        'detected': '🔍',
-                        'edited': '✏️', 
-                        'annotated': '📝',
-                        'processed': '✅'
-                    }
-                    st.write(f"{status_color.get(scene['status'], '❓')} {scene['status']}")
-                with col5:
-                    if st.button("📝", key=f"select_{scene['id']}", help="Seleccionar para anotar"):
-                        st.session_state.selected_scene = scene
                         st.rerun()
-    
-    with col_right:
-        render_annotation_panel()
+                    else:
+                        st.error("No se detectaron escenas. Prueba con un umbral más bajo.")
+                        print(f"[TERMINAL APP] ❌ No se detectaron escenas.")
+                except Exception as e:
+                    st.error(f"Ocurrió un error durante el análisis: {e}")
+                    logging.error(f"Error en la detección de escenas: {e}", exc_info=True)
+                    print(f"[TERMINAL APP] ❌ Ocurrió un error durante el análisis: {e}")
+            else:
+                st.error("El archivo de video no es válido o no se puede procesar.")
+                print(f"[TERMINAL APP] ❌ El archivo de video no es válido.")
 
-def render_annotation_panel():
-    """Renderiza el panel de anotación contextual."""
-    st.subheader("📝 Panel de Anotación")
-    
-    if st.session_state.selected_scene is None:
-        st.info("👈 Selecciona una escena del timeline para comenzar a anotar")
-        return
-    
-    # Obtener la escena seleccionada
-    selected_scene_data = st.session_state.selected_scene
-    
-    if selected_scene_data is None:
-        st.error("Error: Escena no encontrada")
-        return
-    
-    # Información de la escena
-    st.markdown(f"### 🎬 {selected_scene_data['id']}")
-    st.markdown(f"**Duración:** {selected_scene_data['duration']:.1f} segundos")
-    st.markdown(f"**Tiempo:** {selected_scene_data['start_timecode']} - {selected_scene_data['end_timecode']}")
-    
-    # TODO: Implementar vista previa de fotogramas en ETAPA 5
-    st.markdown("**Vista previa:**")
-    st.info("🚧 Fotogramas de vista previa (se implementarán en ETAPA 5)")
-    
-    # Anotación de personajes
-    st.markdown("**👥 Personajes presentes:**")
-    characters = [char['name'] for char in st.session_state.characters_data['characters']]
-    
-    selected_characters = st.multiselect(
-        "Selecciona los personajes que aparecen en esta escena",
-        characters,
-        key=f"characters_{selected_scene_data['id']}"
-    )
-    
-    # Notas de contexto narrativo
-    st.markdown("**📖 Notas de Contexto Narrativo:**")
-    narrative_notes = st.text_area(
-        "Notas de Contexto para la IA (Callbacks, Simbolismo, Lore):",
-        placeholder="Ejemplo: Esta escena muestra el primer encuentro de Eleven con el Demogorgon. Importante para el arco narrativo de la temporada. Referencias al Upside Down y experimentos del laboratorio.",
-        height=150,
-        key=f"notes_{selected_scene_data['id']}"
-    )
-    
-    # Estado de la escena
-    st.markdown("**📊 Estado:**")
-    status_color = {
-        "Sin procesar": "🔴",
-        "En cola": "🟡", 
-        "Procesado": "🟢"
-    }
-    st.markdown(f"{status_color.get(selected_scene_data['status'], '⚪')} {selected_scene_data['status']}")
-    
-    # Botón de procesamiento
-    st.markdown("---")
-    process_scene_button = st.button(
-        "🚀 Enviar a Procesamiento IA",
-        use_container_width=True,
-        disabled=selected_scene_data['status'] == "Procesado"
-    )
-    
-    if process_scene_button:
-        # TODO: Implementar pipeline de IA en ETAPA 6
-        st.success("🚧 Pipeline de IA (se implementará en ETAPA 6)")
-        # Actualizar estado temporalmente
-        for scene in st.session_state.scenes:
-            if scene['id'] == selected_scene_data['id']:
-                scene['status'] = "processed"
-                break
-        st.rerun()
+# Función display_interactive_timeline eliminada - será reemplazada por timeline de chips
 
+# Función handle_scene_merging eliminada - será reemplazada por herramientas de edición
+
+# --- Interfaz Principal ---
 def main():
-    """Función principal de la aplicación."""
-    print(f"[TERMINAL MAIN] 🚀 Iniciando main()")
+    """Función principal que renderiza la aplicación Streamlit."""
     initialize_session_state()
-    print(f"[TERMINAL MAIN] ✅ Session state inicializado")
-    print(f"[TERMINAL MAIN] 📊 Estado actual: analysis_completed={st.session_state.analysis_completed}, scenes={len(st.session_state.scenes) if st.session_state.scenes else 0}")
-    
     render_sidebar()
-    print(f"[TERMINAL MAIN] ✅ Sidebar renderizado")
-    
-    render_main_interface()
-    print(f"[TERMINAL MAIN] ✅ Main interface renderizada")
+
+    st.title("Editor Visual de Escenas")
+    st.markdown("---_*")
+
+    if not st.session_state.analysis_completed:
+        st.info("👋 ¡Bienvenido! Por favor, carga un video y haz clic en 'Analizar' en la barra lateral para comenzar.")
+        # Mostrar video si ya está cargado pero no analizado
+        if st.session_state.video_path:
+            st.video(st.session_state.video_path)
+    else:
+        # --- Layout principal con columnas ---
+        col1, col2 = st.columns([3, 2])
+
+        with col1:
+            st.header("🎬 Reproductor y Timeline")
+            if st.session_state.video_path:
+                st.video(st.session_state.video_path)
+            
+            # Timeline de chips - se implementará en ETAPA 2
+            st.info("🚧 Timeline de chips se implementará en ETAPA 2")
+            
+            # Herramientas de edición - se implementarán en ETAPA 3
+            st.info("🚧 Herramientas de edición (Group/Cut) se implementarán en ETAPA 3")
+
+        with col2:
+            st.header("📝 Panel de Anotación")
+            st.info("🚧 Panel de anotación completo se implementará en ETAPA 4")
+            
+            # Mostrar información básica de escenas por ahora
+            st.subheader("Escenas Detectadas")
+            if st.session_state.scenes:
+                df_display = pd.DataFrame(st.session_state.scenes)
+                df_display['start'] = df_display['start_timecode']
+                df_display['end'] = df_display['end_timecode']
+                df_display['duration_s'] = df_display['duration']
+                st.dataframe(df_display[['id', 'start', 'end', 'duration_s']], use_container_width=True)
+            else:
+                st.info("No hay escenas para mostrar.")
 
 if __name__ == "__main__":
     main()
